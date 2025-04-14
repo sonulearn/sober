@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Start Your Recovery Today with Expert Support</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Start Your Recovery Today with Expert Support">
+    <meta name="author" content="Start Your Recovery Today with Expert Support">
+    <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="../../../../cdn.jsdelivr.net/npm/bootstrap-icons%401.10.5/font/bootstrap-icons.css">
+
+    <!-- FontAwesome JS-->
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/devdesk.css">
+
+
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4dabf7;
+            --dark: #2f3e46;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+        }
+
+        .avatar {
+            display: none !important;
+        }
+
+        .chat-container {
+            /* background: white; */
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .chat-header h2 {
+            font-weight: 500;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .message {
+            display: flex;
+            gap: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar.system {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .message-content {
+            flex: 1;
+        }
+
+        .message-bubble {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .question {
+            background: #f8f9fa;
+            border-top-left-radius: 5px;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 0px;
+        }
+
+        .option {
+            /* background: white; */
+            border: 1px solid #e9ecef;
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .answer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-top-right-radius: 5px;
+            margin-left: auto;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .chat-input {
+            padding: 15px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .send-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="page-header-wrapper">
+        <div class="page-header-bg-pattern-holder">
+            <div class="bg-pattern-top"></div>
+            <div class="bg-pattern-bottom"></div>
+        </div><!--//page-header-bg-pattern-holder-->
+
+        <header class="header">
+			<div class="container">
+				<nav class="navbar navbar-expand-lg">
+					<div class="site-logo me-3">
+						<a class="navbar-brand" href="index.html">
+							<img class="logo-icon" src="assets/images/logo.png" alt="logo">
+						</a>
+					</div>
+					<!--//site-logo-->
+
+
+					<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span> </span>
+						<span> </span>
+						<span> </span>
+					</button>
+
+					<div class="collapse navbar-collapse ms-auto" id="navigation">
+
+						<ul class="navbar-nav ms-auto align-items-lg-center">
+							<li class="nav-item me-lg-4">
+								<a class="nav-link" href="index.html">Home</a>
+							</li>
+							<li class="nav-item me-lg-4">
+								<a class="nav-link" href="about-us.html">Abouts</a>
+							</li>
+
+							<li class="nav-item me-lg-4">
+								<a class="nav-link" href="blog.html">Blog</a>
+							</li>
+
+							<li class="nav-item pt-3 pt-lg-0">
+								<a class="nav-btn btn btn-primary text-white" href="find-result.html">Find Doctor </a>
+							</li>
+						</ul><!--//navbar-nav-->
+
+					</div>
+				</nav>
+			</div><!--//container-->
+
+		</header><!--//header-->
+
+        <div class="page-heading-holder">
+            <div class="container">
+
+
+                <div class="row ">
+                    <div class="item col-7 col-md-7 col-lg-7 py-4 p-md-4">
+                        <h1 class="page-heading mb-3">Find Nearest <br> Specialist.</h1>
+                        <p class="mt-4" style=" padding-right: 50px; ">Easily locate trusted specialists in your area
+                            and get the help you need with
+                            just a few simple clicks.</p>
+
+                    </div>
+
+                    <div class="col-5 col-md-5 col-lg-5">
+
+                        <div class="chat-container">
+                            <div class="chat-messages" id="chatMessages">
+                                <!-- Initial greeting -->
+                                <div class="message">
+                                    <div class="avatar system">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="message-content">
+                                        <div class="message-bubble question">
+                                            Are you looking for help for yourself or someone else?
+                                        </div>
+                                        <div class="options">
+                                            <div class="option" onclick="selectOption('Myself')">
+                                                Myself
+                                            </div>
+                                            <div class="option" onclick="selectOption('Someone else')">
+                                                Someone else
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div><!--//page-heading-holder-->
+    </div><!--//page-header-wrapper-->
+
+
+    <!-- Javascript -->
+    <script src="assets/plugins/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        const questions = [
+            {
+                question: "What type of substances are involved?",
+                options: [
+                    "Alcohol",
+                    "Marijuana",
+                    "Tobacco",
+                    "Other"
+                ]
+            },
+            {
+                question: "Are you currently or have experienced withdrawal symptoms?",
+                options: [
+                    "Chills",
+                    "Nausea",
+                    "Anxiety",
+                    "Sweating",
+                    "Headaches",
+                    "None"
+                ]
+            },
+            {
+                question: "Do you need a support group?",
+                options: [
+                    "Yes",
+                    "No",
+                    "Maybe"
+                ]
+            },
+            {
+                question: "Are you looking for local or online help?",
+                options: [
+                    "Local",
+                    "Online",
+                    "Both"
+                ]
+            },
+            {
+                question: "Thank you for answering our questions! We can now connect you with the right resources.",
+                options: []
+            }
+        ];
+
+        let currentQuestion = 0;
+
+        function selectOption(answerText) {
+            // Add user's answer to chat
+            addMessage(answerText, 'user');
+
+            // Disable all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.style.pointerEvents = 'none';
+                option.style.opacity = '0.6';
+            });
+
+            // Process next question after a short delay
+            setTimeout(() => {
+                if (currentQuestion < questions.length - 1) {
+                    showNextQuestion();
+                    currentQuestion++;
+                } else {
+                    // Show final message and buttons
+                    showFinalStep();
+                }
+            }, 800);
+        }
+
+        function showNextQuestion() {
+            const question = questions[currentQuestion];
+
+            // Add system question to chat
+            addMessage(question.question, 'system');
+
+            // Add options if they exist
+            if (question.options && question.options.length > 0) {
+                const optionsHtml = question.options.map(option =>
+                    `<div class="option" onclick="selectOption('${option}')">${option}</div>`
+                ).join('');
+
+                document.getElementById('chatMessages').insertAdjacentHTML('beforeend',
+                    `<div class="options">${optionsHtml}</div>`);
+            }
+        }
+
+        function showFinalStep() {
+            const question = questions[questions.length - 1];
+
+            // Add final system message
+            addMessage(question.question, 'system');
+
+            // Add action buttons
+            document.getElementById('chatMessages').insertAdjacentHTML('beforeend',
+                // `<div class="action-buttons">
+                //     <button class="action-btn primary-btn" onclick="findSpecialist()">
+                //         <i class="fas fa-user-md"></i> Find Specialist
+                //     </button>
+                //     <button class="action-btn secondary-btn" onclick="viewResources()">
+                //         <i class="fas fa-book"></i> View Resources
+                //     </button>
+                // </div>`
+
+                `
+                <div class="section-cta pt-4 pt-lg-5">
+					    <a href="#" class="btn btn-primary me-2" onclick="findSpecialist()" >View Resources</a>
+					    <a href="find-result.html" class="btn btn-secondary"> Restart </a>
+				</div>
+                `
+
+            );
+
+            // Scroll to bottom
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+
+            if (sender === 'user') {
+                chatMessages.insertAdjacentHTML('beforeend',
+                    `<div class="message">
+                        <div class="avatar">
+                            <img src="https://ui-avatars.com/api/?name=You&background=random" alt="You">
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble answer">${text}</div>
+                        </div>
+                    </div>`);
+            } else {
+                chatMessages.insertAdjacentHTML('beforeend',
+                    `<div class="message">
+                        <div class="avatar system">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-bubble question">${text}</div>
+                        </div>
+                    </div>`);
+            }
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function findSpecialist() {
+            alert("We'll now help you find a specialist near you!");
+            // Add your specialist finding logic here
+        }
+
+        function viewResources() {
+
+            // Reset the question counter
+            currentQuestion = 0;
+
+            // Show first question again
+            setTimeout(() => {
+                showNextQuestion();
+            }, 1000);
+
+            alert("Here are some helpful resources for you!");
+            // Add your resource display logic here
+        }
+    </script>
+
+</body>
+
+</html>
